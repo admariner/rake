@@ -11,6 +11,7 @@ jobs:
     with:
       min_version: 2.3
       engine: cruby-jruby
+      versions: '["truffleruby"]'
 
   test:
     needs: ruby-versions
@@ -20,6 +21,13 @@ jobs:
         os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
         ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
         exclude:
+          - os: macos-latest
+            ruby: 2.3
+          - os: macos-latest
+            ruby: 2.4
+          - os: macos-latest
+            ruby: 2.5
+          - os: macos-latest
           - os: windows-latest
             ruby: truffleruby
           - os: windows-latest
@@ -27,8 +35,8 @@ jobs:
           - os: windows-latest
             ruby: jruby
     steps:
-    - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v3.3.0
-    - uses: ruby/setup-ruby@d4526a55538b775af234ba4af27118ed6f8f6677 # v1.172.0
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v3.3.0
+    - uses: ruby/setup-ruby@1d0e911f615a112e322369596f10ee0b95b010ae # v1.183.0
       with:
         ruby-version: ${{ matrix.ruby }}
     - name: Install dependencies
